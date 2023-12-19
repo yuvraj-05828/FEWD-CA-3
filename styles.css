@@ -103,8 +103,8 @@ u{
 }
 
 .category{
-    margin-right: 300px;
-    width: 150px;
+    margin-right: 60px;
+    width: 330px;
     height: 35px;
     margin-bottom: 20px;
     color:rgb(255, 255, 255);
@@ -131,7 +131,7 @@ u{
 }
 
 #search-btn{
-    margin-left:300px ;
+    margin-left:185px ;
   width: 80px;
   height: 33px;
   color: white;
@@ -154,8 +154,8 @@ u{
 .meal{
   display: flex;
   flex-direction: column;
-  width: 200px;
-  min-height: 250px;
+  width: 300px;
+  min-height: 200px;
   max-height: fit-content;
   padding: 10px;
   gap: 15px;
@@ -173,7 +173,7 @@ u{
   border-radius: 10px;
 }
 #output{
-  width: 70vw;
+  width: 90vw;
   gap: 20px;
   display: flex;
   flex-direction: row;
@@ -275,7 +275,10 @@ h4{
 h3{
     color: #ffffff;
 }
-
+hr{
+  color: #C44CFD;
+  background-color: #C44CFD;
+}
 
 
 .blink{
