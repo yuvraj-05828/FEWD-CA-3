@@ -5,7 +5,9 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 
-// Load environment variables
+// Load environment variables from both backend/.env and root .env
+dotenv.config({ path: path.join(__dirname, '.env') });
+dotenv.config({ path: path.join(__dirname, '..', '.env') });
 dotenv.config();
 
 const connectDB = require('./config/db');
@@ -91,12 +93,15 @@ const PORT = process.env.PORT || 5000;
 
 // Connect to database and start server if executed directly
 if (require.main === module) {
-  connectDB().then(() => {
-    app.listen(PORT, () => {
-      console.log(`[COOK Server] Running on http://localhost:${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+  const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`[COOK Server] Listening on 0.0.0.0:${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+    connectDB().catch((err) => {
+      console.error('[COOK Server] Database connection error:', err.message);
     });
-  }).catch((err) => {
-    console.error('[COOK Server] Failed to connect to DB on startup:', err.message);
+  });
+
+  server.on('error', (err) => {
+    console.error('[COOK Server] Server error:', err.message);
   });
 }
 
