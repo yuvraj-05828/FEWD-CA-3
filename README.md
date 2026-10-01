@@ -563,7 +563,7 @@ Click **Create Web Service**. Render will install dependencies, connect to Mongo
 ## Live Demo & Repository
 
 - **GitHub Repository**: [https://github.com/yuvraj-05828/FEWD-CA-3](https://github.com/yuvraj-05828/FEWD-CA-3)
-- **Live Deployment URL**: *(Deployment-ready placeholder: `https://cook-recipe-api.onrender.com` — replace with your live Render URL upon completing Render dashboard setup)*
+- **Live Deployment URL**: [https://fewd-ca-3.onrender.com/](https://fewd-ca-3.onrender.com/)
 
 ---
 
