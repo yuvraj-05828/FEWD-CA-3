@@ -1,0 +1,22 @@
+{
+  "name": "cook-fullstack-recipe-platform",
+  "version": "1.0.0",
+  "description": "Full-stack Recipe Management Application with Node.js, Express, MongoDB, and Vanilla JavaScript",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js",
+    "test": "node backend/tests/api.test.js",
+    "seed": "node backend/seed.js",
+    "build": "npm --prefix backend install"
+  },
+  "keywords": [
+    "recipe",
+    "full-stack",
+    "express",
+    "mongodb",
+    "jwt",
+    "rest-api"
+  ],
+  "author": "Yuvraj",
+  "license": "ISC"
+}

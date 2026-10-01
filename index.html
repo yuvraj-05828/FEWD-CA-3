@@ -5,51 +5,213 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>COOK</title>
+    <title>COOK — Gourmet Recipe Platform</title>
 </head>
 <body>
     <div id="head">
         <div id="title">
             <h1 id="logo">Cook</h1>
-            <button id="home">Home</button>
+            <div id="nav-actions">
+                <button id="home" class="nav-btn">Home</button>
+                <!-- Guest state -->
+                <div id="auth-guest" class="auth-bar-group">
+                    <button id="btn-login-open" class="nav-btn nav-btn-outline">Login</button>
+                    <button id="btn-register-open" class="nav-btn nav-btn-accent">Register</button>
+                </div>
+                <!-- Logged in state -->
+                <div id="auth-logged-in" class="auth-bar-group" style="display: none;">
+                    <span id="user-badge" class="user-badge">👤 <span id="user-name">User</span></span>
+                    <button id="btn-create-recipe-open" class="nav-btn nav-btn-accent">+ Add Recipe</button>
+                    <button id="btn-logout" class="nav-btn nav-btn-outline">Logout</button>
+                </div>
+            </div>
         </div><br>
         <div id="descrip">
             <h6>Explore new dishes on <u class="blink">COOK</u></h6>
             <p>Looking for dishes to prepare?? Not finding a good dish??<br>
-              Find more Than 300+ gourmet dishes on <u>COOK</u>.
+              Find more than 300+ gourmet dishes on <u>COOK</u>.
             </p><br>
         </div>
         <footer>
           <hr>
         </footer>
     </div>
-    <div>
+
+    <!-- Search & Category Filters -->
+    <div class="search-section">
         <div>
             <p id="refer">Search your dishes here :-</p><br>
-            <button class="category" id="categ1">Click here first to activate search bar</button> 
-            <div><input id="search" type="text" placeholder="Search here..."></div>
-            <Button id="search-btn">Search</Button>
-        </div>
-    </div>
-    <h2>Random Meal</h2>
-    <div id="random-card">
-    </div><br>
-    <div><h2 id="input"></h2></div>
-    <div id="output">
-    </div>
-    
-    <div id="modal-1" class="modal">
-        <div class="content">
-            <span class="exit">&times;</span>
-            <h4>Ingredients</h4>
-            <br><br>
-            <div id="information">
-
+            <div class="search-input-wrap">
+                <input id="search" type="text" placeholder="Search by dish name, ingredient, or cuisine...">
+                <button id="search-btn">Search</button>
+                <button id="search-clear-btn" class="secondary-btn" title="Reset Search">Reset</button>
+            </div>
+            
+            <div id="category-filters" class="category-pills-container">
+                <button class="cat-pill active" data-category="">All Dishes</button>
+                <button class="cat-pill" data-category="pasta">Pasta</button>
+                <button class="cat-pill" data-category="curry">Curry</button>
+                <button class="cat-pill" data-category="pizza">Pizza</button>
+                <button class="cat-pill" data-category="breakfast">Breakfast</button>
+                <button class="cat-pill" data-category="seafood">Seafood</button>
+                <button class="cat-pill" data-category="dessert">Dessert</button>
             </div>
         </div>
     </div>
+
+    <!-- Featured / Random Meal Section -->
+    <div class="section-container">
+        <h2>Featured Gourmet Recipe</h2>
+        <div id="random-card">
+            <div class="loading-spinner">Loading gourmet recipe...</div>
+        </div>
+    </div>
+    
+    <br>
+
+    <!-- Dynamic Output Section -->
+    <div class="section-container">
+        <div><h2 id="input">Our Gourmet Recipes</h2></div>
+        <div id="output">
+            <div class="loading-spinner">Loading recipes from database...</div>
+        </div>
+    </div>
+
+    <!-- Recipe Details Modal -->
+    <div id="modal-1" class="modal">
+        <div class="content modal-details">
+            <span class="exit" id="modal-close">&times;</span>
+            <div id="recipe-detail-header">
+                <h3 id="modal-recipe-title">Recipe Details</h3>
+                <span id="modal-recipe-category" class="badge-category">Category</span>
+                <p id="modal-recipe-author" class="recipe-author-text">Created by: Chef</p>
+            </div>
+            <div id="modal-recipe-media">
+                <img id="modal-recipe-img" class="detail-img" src="" alt="Recipe image">
+            </div>
+            <div class="detail-section">
+                <h4>Ingredients</h4>
+                <div id="information" class="ingredients-box"></div>
+            </div>
+            <div class="detail-section">
+                <h4>Instructions</h4>
+                <div id="modal-recipe-instructions" class="instructions-box"></div>
+            </div>
+            <!-- Owner Actions -->
+            <div id="modal-owner-actions" class="owner-actions-wrap" style="display: none;">
+                <button id="modal-btn-edit" class="action-btn edit-btn">✏️ Edit Recipe</button>
+                <button id="modal-btn-delete" class="action-btn delete-btn">🗑️ Delete Recipe</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal (Login & Registration) -->
+    <div id="auth-modal" class="modal">
+        <div class="content auth-content">
+            <span class="exit" id="auth-modal-close">&times;</span>
+            <div class="auth-tabs">
+                <button id="tab-login" class="auth-tab active">Login</button>
+                <button id="tab-register" class="auth-tab">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="form-login" class="auth-form">
+                <div id="login-error" class="form-error-msg" style="display: none;"></div>
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required placeholder="chef@cook.com">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" id="btn-login-submit" class="submit-btn">Login</button>
+                <p class="auth-switch-text">
+                    New to COOK? <a href="#" id="link-to-register">Create an account</a>
+                </p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="form-register" class="auth-form" style="display: none;">
+                <div id="register-error" class="form-error-msg" style="display: none;"></div>
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" required placeholder="Chef Mario">
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email Address</label>
+                    <input type="email" id="register-email" required placeholder="mario@cook.com">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password (min 6 characters)</label>
+                    <input type="password" id="register-password" required minlength="6" placeholder="••••••••">
+                </div>
+                <button type="submit" id="btn-register-submit" class="submit-btn">Register</button>
+                <p class="auth-switch-text">
+                    Already have an account? <a href="#" id="link-to-login">Sign in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Recipe Create / Edit Modal -->
+    <div id="recipe-modal" class="modal">
+        <div class="content recipe-form-content">
+            <span class="exit" id="recipe-modal-close">&times;</span>
+            <h3 id="recipe-modal-title">Create New Recipe</h3>
+            <form id="form-recipe" class="recipe-form">
+                <input type="hidden" id="recipe-form-id">
+                <div id="recipe-error" class="form-error-msg" style="display: none;"></div>
+                
+                <div class="form-group">
+                    <label for="recipe-title">Recipe Title</label>
+                    <input type="text" id="recipe-title" required placeholder="e.g. Creamy Tuscan Garlic Chicken">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label for="recipe-category">Category</label>
+                        <select id="recipe-category" required>
+                            <option value="pasta">Pasta</option>
+                            <option value="curry">Curry</option>
+                            <option value="pizza">Pizza</option>
+                            <option value="breakfast">Breakfast</option>
+                            <option value="seafood">Seafood</option>
+                            <option value="dessert">Dessert</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group flex-2">
+                        <label for="recipe-image">Image URL (Optional)</label>
+                        <input type="url" id="recipe-image" placeholder="https://images.unsplash.com/...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipe-ingredients">Ingredients (One ingredient per line or comma-separated)</label>
+                    <textarea id="recipe-ingredients" rows="4" required placeholder="400g Fettuccine&#10;2 tbsp Olive Oil&#10;3 cloves Garlic (minced)&#10;1 cup Heavy Cream&#10;Fresh Parmesan"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipe-instructions">Cooking Instructions</label>
+                    <textarea id="recipe-instructions" rows="5" required placeholder="1. Boil pasta in salted water until al dente.&#10;2. Sauté minced garlic in olive oil until aromatic.&#10;3. Add cream and simmer gently for 5 minutes.&#10;4. Toss pasta with sauce and top with freshly grated parmesan."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="btn-recipe-cancel" class="action-btn cancel-btn">Cancel</button>
+                    <button type="submit" id="btn-recipe-submit" class="submit-btn">Save Recipe</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Banner -->
+    <div id="toast-banner" class="toast-banner"></div>
+
     <footer>
         <hr>
+        <p class="footer-note">COOK — Powered by Node.js, Express, MongoDB REST API & Vanilla JavaScript</p>
     </footer>
     <script src="app.js"></script>
 </body>
